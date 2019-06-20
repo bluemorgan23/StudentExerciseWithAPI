@@ -1,0 +1,14 @@
+C:\Users\bluem\Documents\projects\StudentExercisesAPI\StudentExercisesAPI\bin\Debug\netcoreapp2.2\StudentExercisesAPI.deps.json
+C:\Users\bluem\Documents\projects\StudentExercisesAPI\StudentExercisesAPI\bin\Debug\netcoreapp2.2\StudentExercisesAPI.runtimeconfig.json
+C:\Users\bluem\Documents\projects\StudentExercisesAPI\StudentExercisesAPI\bin\Debug\netcoreapp2.2\StudentExercisesAPI.runtimeconfig.dev.json
+C:\Users\bluem\Documents\projects\StudentExercisesAPI\StudentExercisesAPI\bin\Debug\netcoreapp2.2\StudentExercisesAPI.dll
+C:\Users\bluem\Documents\projects\StudentExercisesAPI\StudentExercisesAPI\bin\Debug\netcoreapp2.2\StudentExercisesAPI.pdb
+C:\Users\bluem\Documents\projects\StudentExercisesAPI\StudentExercisesAPI\obj\Debug\netcoreapp2.2\StudentExercisesAPI.csprojAssemblyReference.cache
+C:\Users\bluem\Documents\projects\StudentExercisesAPI\StudentExercisesAPI\obj\Debug\netcoreapp2.2\StudentExercisesAPI.csproj.CoreCompileInputs.cache
+C:\Users\bluem\Documents\projects\StudentExercisesAPI\StudentExercisesAPI\obj\Debug\netcoreapp2.2\StudentExercisesAPI.RazorAssemblyInfo.cache
+C:\Users\bluem\Documents\projects\StudentExercisesAPI\StudentExercisesAPI\obj\Debug\netcoreapp2.2\StudentExercisesAPI.RazorAssemblyInfo.cs
+C:\Users\bluem\Documents\projects\StudentExercisesAPI\StudentExercisesAPI\obj\Debug\netcoreapp2.2\StudentExercisesAPI.AssemblyInfoInputs.cache
+C:\Users\bluem\Documents\projects\StudentExercisesAPI\StudentExercisesAPI\obj\Debug\netcoreapp2.2\StudentExercisesAPI.AssemblyInfo.cs
+C:\Users\bluem\Documents\projects\StudentExercisesAPI\StudentExercisesAPI\obj\Debug\netcoreapp2.2\StudentExercisesAPI.RazorTargetAssemblyInfo.cache
+C:\Users\bluem\Documents\projects\StudentExercisesAPI\StudentExercisesAPI\obj\Debug\netcoreapp2.2\StudentExercisesAPI.dll
+C:\Users\bluem\Documents\projects\StudentExercisesAPI\StudentExercisesAPI\obj\Debug\netcoreapp2.2\StudentExercisesAPI.pdb
