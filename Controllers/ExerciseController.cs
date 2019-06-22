@@ -67,8 +67,8 @@ namespace StudentExercisesAPI.Controllers
 
         //Code for getting a single exercise
         // GET: api/Exercise/5
-        [HttpGet("{id}", Name = "Get")]
-        public async Task<IActionResult> Get(int Id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
         {
             using (SqlConnection conn = Connection)
             {
@@ -79,9 +79,9 @@ namespace StudentExercisesAPI.Controllers
                     cmd.CommandText = @"SELECT
                                         Id, ExerciseName, ExerciseLanguage
                                         FROM Exercise
-                                        WHERE Id = @Id";
+                                        WHERE Id = @id";
 
-                    cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                    cmd.Parameters.Add(new SqlParameter("@id", id));
 
                     SqlDataReader reader = await cmd.ExecuteReaderAsync();
 
@@ -121,11 +121,11 @@ namespace StudentExercisesAPI.Controllers
                     cmd.Parameters.Add(new SqlParameter("@ExerciseName", exercise.ExerciseName));
                     cmd.Parameters.Add(new SqlParameter("@ExerciseLanguage", exercise.ExerciseLanguage));
 
-                    int newId = (int) await cmd.ExecuteScalarAsync();
+                    int newId =  (int) await cmd.ExecuteScalarAsync();
 
                     exercise.Id = newId;
 
-                    return CreatedAtRoute("Get", new { Id = newId }, exercise);
+                    return CreatedAtAction("Get", new { Id = newId }, exercise);
                 }
             }
         }
