@@ -31,7 +31,7 @@ namespace StudentExercisesAPI.Controllers
         }
         // GET: api/Student
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(string include)
         {
             using (SqlConnection conn = Connection)
             {
@@ -39,33 +39,96 @@ namespace StudentExercisesAPI.Controllers
 
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT s.Id AS StudentId, s.FirstName, s.LastName, s.CohortId, c.CohortName, c.Id AS CohortId FROM Student s JOIN Cohort c ON c.Id = s.CohortId";
-
-                    List<Student> students = new List<Student>();
-
-                    SqlDataReader reader = await cmd.ExecuteReaderAsync();
-
-                    while (reader.Read())
+                    if(include == "Exercise")
                     {
-                        Student student = new Student
+                        cmd.CommandText = @"SELECT s.Id AS StudentId, s.FirstName, s.LastName, s.CohortId, c.CohortName, c.Id AS CohortId, e.Id AS ExerciseId, e.ExerciseName, e.ExerciseLanguage, se.StudentId AS SEStudentId, se.ExerciseId AS SEExerciseId FROM StudentExercise se JOIN Student s ON se.StudentId = s.Id
+                                        JOIN Cohort c ON c.Id = s.CohortId
+                                        JOIN Exercise e ON e.Id = se.ExerciseId;";
+
+                        List<Student> students = new List<Student>();
+
+                        List<Exercise> exercises = new List<Exercise>();
+
+                        SqlDataReader reader = await cmd.ExecuteReaderAsync();
+
+                        while (reader.Read())
                         {
-                            Id = reader.GetInt32(reader.GetOrdinal("StudentId")),
-                            FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
-                            LastName = reader.GetString(reader.GetOrdinal("LastName")),
-                            CohortId = reader.GetInt32(reader.GetOrdinal("CohortId")),
-                            Cohort = new Cohort
+
+                            Exercise exercise = new Exercise
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("CohortId")),
-                                CohortName = reader.GetString(reader.GetOrdinal("CohortName"))
-                            }
-                        };
+                                Id = reader.GetInt32(reader.GetOrdinal("ExerciseId")),
+                                ExerciseName = reader.GetString(reader.GetOrdinal("ExerciseName")),
+                                ExerciseLanguage = reader.GetString(reader.GetOrdinal("ExerciseLanguage"))
+                            };
 
-                        students.Add(student);
+                            exercises.Add(exercise);
+
+
+                            Student student = new Student
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("StudentId")),
+                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                CohortId = reader.GetInt32(reader.GetOrdinal("CohortId")),
+                                Cohort = new Cohort
+                                {
+                                    Id = reader.GetInt32(reader.GetOrdinal("CohortId")),
+                                    CohortName = reader.GetString(reader.GetOrdinal("CohortName"))
+                                },
+                                ExerciseList = exercises.Where(e => reader.GetInt32(reader.GetOrdinal("SEExerciseId")) == e.Id).ToList()
+                            };
+
+                            students.Add(student);
+
+
+
+
+
+                        }
+
+                        reader.Close();
+
+                        return Ok(students);
                     }
+                    else
+                    {
+                        cmd.CommandText = @"SELECT
+                                            s.Id AS StudentId,
+                                            s.FirstName,
+                                            s.LastName,
+                                            s.CohortId,
+                                            c.CohortName,
+                                            c.Id AS CohortId
+                                         FROM Student s
+                                         JOIN Cohort c ON c.Id = s.CohortId";
 
-                    reader.Close();
+                        List<Student> students = new List<Student>();
 
-                    return Ok(students);
+                        SqlDataReader reader = await cmd.ExecuteReaderAsync();
+
+                        while (reader.Read())
+                        {
+                            Student student = new Student
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("StudentId")),
+                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                CohortId = reader.GetInt32(reader.GetOrdinal("CohortId")),
+                                Cohort = new Cohort
+                                {
+                                    Id = reader.GetInt32(reader.GetOrdinal("CohortId")),
+                                    CohortName = reader.GetString(reader.GetOrdinal("CohortName"))
+                                }
+                            };
+
+                            students.Add(student);
+                        }
+
+                        reader.Close();
+
+                        return Ok(students);
+                    }
+                    
                 }
             }
         }
